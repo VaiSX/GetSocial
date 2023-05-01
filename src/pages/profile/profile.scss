@@ -49,6 +49,10 @@
             height: 30vh;
         }
 
+        @include tablet{
+          padding:10px;
+        }
+
         .left {
           flex: 1;
           display: flex;
