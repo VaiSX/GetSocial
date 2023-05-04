@@ -15,7 +15,7 @@ import Rightbar from "./components/rightBar/RightBar.jsx";
 import Leftbar from "./components/leftBar/LeftBar.jsx";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/authContext";
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 
 

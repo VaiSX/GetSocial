@@ -1,41 +1,51 @@
-import { Link } from "react-router-dom"
-import "./register.scss"
-import { useState } from "react"
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import "./register.scss";
 import axios from "axios";
 
 const Register = () => {
+  const [inputs, setInputs] = useState({
+    username: "",
+    email: "",
+    password: "",
+    name: "",
+  });
+  const [err, setErr] = useState(null);
 
-    const [inputs,setInputs] = useState({
-        username: "",
-        email: "",
-        password: "",
-        name: "",
-    })
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
-    const [err,setErr] = useState(null);
+  const handleClick = async (e) => {
+    e.preventDefault();
 
-    const handleChange = (e) =>{
-        setInputs(prev=>({...prev,[e.target.name]:e.target.value}));
-    };
+    try {
+      await axios.post("http://localhost:8800/api/auth/register", inputs);
+    } catch (err) {
+      setErr(err.response.data);
+    }
+  };
 
-    const handleClick = async (e)=>{
-      e.preventDefault();
+  console.log(err)
 
-      try{  
-        await axios.post("http://localhost:8800/api/auth/register",inputs)
-      }catch(err){
-        setErr(err.response.data);
-      }
-    };
-
-    console.log(err);
-    
-    return (
-        <div className="register">
-        <div className="card">
-            <div className="right">
-                <h1>Register</h1>
-                <form>
+  return (
+    <div className="register">
+      <div className="card">
+        <div className="left">
+          <h1>Lama Social.</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
+            alias totam numquam ipsa exercitationem dignissimos, error nam,
+            consequatur.
+          </p>
+          <span>Do you have an account?</span>
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+        </div>
+        <div className="right">
+          <h1>Register</h1>
+          <form>
             <input
               type="text"
               placeholder="Username"
@@ -63,19 +73,10 @@ const Register = () => {
             {err && err}
             <button onClick={handleClick}>Register</button>
           </form>
-            </div>
-            <div className="left">
-                <h1>Get Social</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam ut venenatis tellus in metus vulputate eu scelerisque felis. Montes nascetur ridiculus mus mauris. </p>
-                <span>Do you have an account ?</span>
-                <Link to="/login">
-                
-                <button>Login</button>       
-                </Link>
-            </div>
         </div>
+      </div>
     </div>
-    )
-}
+  );
+};
 
-export default Register
+export default Register;
